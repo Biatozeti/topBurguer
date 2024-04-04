@@ -22,11 +22,11 @@ class ProdutoController extends Controller
     }
 
     public function store(Request $request){
-        $produtoData = $request->$request->all();
+        $produtoData = $request->all();
 
         if($request->hasFile('imagem')){
             $image =$request->file('imagem');
-            $nomeImage = time().'.'.$image->getClienteOriginalExtension();
+            $nomeImage = time().'.'.$image->getClientOriginalExtension();
             $caminhoImagem = $image->storeAs('imagens/produtos', $nomeImage,'public');
             $produtoData['imagem']= $caminhoImagem;
         }
