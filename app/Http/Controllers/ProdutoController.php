@@ -25,14 +25,22 @@ class ProdutoController extends Controller
         $produtoData = $request->all();
 
         if($request->hasFile('imagem')){
-            $image =$request->file('imagem');
-            $nomeImage = time().'.'.$image->getClientOriginalExtension();
-            $caminhoImagem = $image->storeAs('imagens/produtos', $nomeImage,'public');
+            $imagem =$request->file('imagem');
+            $nomeImagem = time().'.'.$imagem->getClientOriginalExtension();
+            $caminhoImagem = $imagem->storeAs('imagens/produtos', $nomeImagem,'public');
             $produtoData['imagem']= $caminhoImagem;
         }
         $produto = Produto::create($produtoData);
         return response()->json(['produto' =>$produto], 201);
 
     }
+    public function retornarTodos()
+    {
+        $produto = Produto::all();
+        return response()->json([
+            'status' => true,
+            'data' => $produto
+        ]);
+}
 }
 
